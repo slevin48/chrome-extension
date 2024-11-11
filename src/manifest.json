@@ -1,0 +1,15 @@
+{
+    "manifest_version": 3,
+    "name": "Bookmark with Tags to Supabase",
+    "version": "1.0",
+    "description": "Bookmark the current page with tags and store it in Supabase.",
+    "permissions": [
+      "activeTab",
+      "scripting",
+      "storage"
+    ],
+    "action": {
+      "default_popup": "popup.html"
+    }
+  }
+  

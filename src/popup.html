@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bookmark with Tags</title>
+    <style>
+        body {
+            min-width: 250px;
+            min-height: 150px;
+            font-family: Arial, sans-serif;
+            padding: 10px;
+        }
+        input[type="text"] {
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 10px;
+            width: 100%;
+        }
+        #status {
+            margin-top: 10px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h3>Add Tags</h3>
+    <input type="text" id="tagsInput" placeholder="Enter tags separated by commas">
+    <button id="saveBtn">Save Bookmark</button>
+    <div id="status"></div>
+    <script src="popup.js"></script>
+</body>
+</html>
