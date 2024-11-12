@@ -2,6 +2,8 @@
 
 Simple chrome extension to bookmark webpage with tags 🔖 
 
+![books](img/books.png)
+
 **Prompt:**
 `Create a chrome extension that enables to bookmark the current page, with a choice of tags.
 Store the article title, url, date and time created_at as well as the associated tags in a supabase database.`
@@ -216,6 +218,8 @@ async function saveBookmark(data) {
   - Storing API keys directly in the extension code is not secure. For a production environment, consider implementing a secure method to handle API keys, such as fetching them from a secure server.
   - Ensure that RLS policies in Supabase are appropriately configured to prevent unauthorized data access.
 
+![stack](img/stack-trace.png)
+
 ---
 
 ### **Supabase Table Schema (SQL)**
@@ -266,7 +270,7 @@ In the **Headers** section of your Postman request, add the following headers:
 | `Prefer`       | `return=representation`                       |
 
 - **Replace** `YOUR_SUPABASE_ANON_KEY` with your actual Supabase anon key.
-- 
+- **Check** RLS Policy to make sure the Key `Prefer` works correctly with the value `return=representation`.  
 
 ### 3. Add the JSON Body
 
