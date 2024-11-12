@@ -3,6 +3,62 @@ document.addEventListener('DOMContentLoaded', function() {
     const tagsInput = document.getElementById('tagsInput');
     const statusDiv = document.getElementById('status');
 
+    // Add function to get page content
+    async function getPageContent() {
+        const [tab] = await chrome.tabs.query({active: true, currentWindow: true});
+        return new Promise((resolve) => {
+            chrome.scripting.executeScript({
+                target: {tabId: tab.id},
+                function: () => document.body.innerText
+            }, (results) => {
+                resolve({
+                    title: tab.title,
+                    content: results[0].result
+                });
+            });
+        });
+    }
+
+    // Add function to suggest tags
+    async function suggestTags() {
+        try {
+            statusDiv.textContent = 'Generating tags...';
+            const pageData = await getPageContent();
+            
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer YOUR_OPENAI_API_KEY'
+                },
+                body: JSON.stringify({
+                    model: "gpt-4o-mini",
+                    messages: [{
+                        role: "system",
+                        content: "You are a helpful assistant that suggests relevant tags for web pages. Respond with only 3-5 comma-separated tags, no explanation."
+                    }, {
+                        role: "user",
+                        content: `Suggest tags for this webpage. Title: ${pageData.title}\n\nContent: ${pageData.content.substring(0, 1000)}`
+                    }]
+                })
+            });
+
+            const data = await response.json();
+            const suggestedTags = data.choices[0].message.content;
+            tagsInput.value = suggestedTags;
+            statusDiv.textContent = 'Tags suggested!';
+        } catch (error) {
+            console.error('Error suggesting tags:', error);
+            statusDiv.textContent = 'Error generating tags';
+        }
+    }
+
+    // Add suggest tags button
+    const suggestBtn = document.createElement('button');
+    suggestBtn.textContent = 'Suggest Tags';
+    suggestBtn.addEventListener('click', suggestTags);
+    tagsInput.parentNode.insertBefore(suggestBtn, tagsInput.nextSibling);
+
     saveBtn.addEventListener('click', function() {
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             const tab = tabs[0];

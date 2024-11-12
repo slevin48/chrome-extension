@@ -2,7 +2,18 @@
 
 Simple chrome extension to bookmark webpage with tags 🔖 
 
-![books](img/books.png)
+![books](img/extension-in-action.png)
+
+## Getting Started
+
+Replace the following with your own:
+- `YOUR_OPENAI_API_KEY`
+- `YOUR_SUPABASE_PROJECT`
+- `YOUR_SUPABASE_ANON_KEY`
+
+---
+
+## Recipe
 
 **Prompt:**
 `Create a chrome extension that enables to bookmark the current page, with a choice of tags.
@@ -347,3 +358,9 @@ For example, your GET request in Postman might look like this:
 ```
 GET https://YOUR_SUPABASE_PROJECT.supabase.co/rest/v1/bookmarks?title=eq.Sample%20Bookmark%20Title
 ```
+
+---
+
+## Resources
+
+- https://developer.chrome.com/docs/extensions/get-started/tutorial
